@@ -1,21 +1,21 @@
-import { NewsService } from "../services/newsService";
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
+import { VideosService } from '../services/videosService';
 
-class NewsController {
-    private _service: NewsService;
+class VideosController {
+    private _service: VideosService;
 
     constructor() {
-        this._service = new NewsService();
+        this._service = new VideosService();
     }
 
     async get(request: Request, response: Response) {
         try {
-            const page = request.params.page ? parseInt(request.params.page) : 1;
-            const qtd = request.params.qtd ? parseInt(request.params.qtd) : 10;
+            const page = request.params.page ? parseInt(request.params.page): 1;
+            const qtd = request.params.qtd ? parseInt(request.params.qtd) : 1;
             let result = await this._service.getAll(page, qtd);
             response.status(200).json({ result });
         } catch (error: any) {
-            response.status(500).json({ error: error.message || error.toString() })
+            response.status(500).json({ error: error.message || error.toString()})
         }
     }
 
@@ -26,8 +26,8 @@ class NewsController {
             response.status(200).json({ result });
         } catch (error: any) {
             response.status(500).json({ error: error.message || error.toString() });
+            }
         }
-    }
 }
 
-export default new NewsController();
+export default new VideosController;
